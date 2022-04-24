@@ -7,11 +7,11 @@ import androidx.lifecycle.ViewModel
 
 class GameViewModel: ViewModel() {
 
-    private var _score = 0
-    val score: Int
+    private var _score = MutableLiveData<Int>()
+    val score: LiveData<Int>
         get() = _score
-    private var _currentWordCount = 0
-    val currentWordCount: Int
+    private var _currentWordCount = MutableLiveData<Int>()
+    val currentWordCount: MutableLiveData<Int>
         get() = _currentWordCount
     private lateinit var currentWord: String
     private val usedWordsList = mutableListOf<String>()
@@ -23,6 +23,8 @@ class GameViewModel: ViewModel() {
 
     init {
         Log.d("GameFragment", "GameViewModel created!")
+        _score.value = 0
+        _currentWordCount.value = 0
         getNextWord()
     }
 
@@ -32,8 +34,8 @@ class GameViewModel: ViewModel() {
     }
 
     fun reinitializeData() {
-        _score = 0
-        _currentWordCount = 0
+        _score.value = 0
+        _currentWordCount.value = 0
         usedWordsList.clear()
         getNextWord()
     }
@@ -46,7 +48,8 @@ class GameViewModel: ViewModel() {
             getNextWord()
         } else {
             usedWordsList.add(currentWord)
-            _currentWordCount++
+            _currentWordCount.value = _currentWordCount.value?.inc()
+            Log.d("cWC",_currentWordCount.value.toString())
         }
 
         val tempWord = currentWord.toCharArray();
@@ -60,7 +63,7 @@ class GameViewModel: ViewModel() {
     }
 
      fun nextWord(): Boolean {
-        if (_currentWordCount < MAX_NO_OF_WORDS ) {
+        if (_currentWordCount.value!! < MAX_NO_OF_WORDS ) {
             getNextWord()
             return true
         } else {
@@ -69,7 +72,7 @@ class GameViewModel: ViewModel() {
     }
 
     private fun increaseScore() {
-        _score.value = _score.value?.plus(SCORE_INCREASE)
+       _score.value = _score.value?.plus(SCORE_INCREASE)
     }
 
     fun isUserWordCorrect(playerWord: String): Boolean {
