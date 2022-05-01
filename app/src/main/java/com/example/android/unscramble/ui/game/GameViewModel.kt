@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel
 
 class GameViewModel: ViewModel() {
 
-    private var _score = MutableLiveData<Int>()
+    private var _score = MutableLiveData<Int>(0)
     val score: LiveData<Int>
         get() = _score
-    private var _currentWordCount = MutableLiveData<Int>()
+    private var _currentWordCount = MutableLiveData<Int>(0)
     val currentWordCount: MutableLiveData<Int>
         get() = _currentWordCount
     private lateinit var currentWord: String
