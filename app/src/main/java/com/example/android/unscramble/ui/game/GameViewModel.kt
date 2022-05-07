@@ -50,6 +50,7 @@ class GameViewModel: ViewModel() {
             usedWordsList.add(currentWord)
             _currentWordCount.value = _currentWordCount.value?.inc()
             Log.d("cWC",_currentWordCount.value.toString())
+
         }
 
         val tempWord = currentWord.toCharArray();
@@ -60,6 +61,7 @@ class GameViewModel: ViewModel() {
             tempWord.shuffle()
             _currentScrambledWord.value = String(tempWord)
         }
+        Log.d("cWC",currentScrambledWord.value.toString())
     }
 
      fun nextWord(): Boolean {

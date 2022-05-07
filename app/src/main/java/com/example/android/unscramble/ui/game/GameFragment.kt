@@ -63,12 +63,12 @@ class GameFragment : Fragment() {
         // Setup a click listener for the Submit and Skip buttons.
         binding.submit.setOnClickListener { onSubmitWord() }
         binding.skip.setOnClickListener { onSkipWord() }
-//        viewModel.score.observe(viewLifecycleOwner,{updatedScore : Int -> binding.score.text = getString(R.string.score,updatedScore)})
-//        viewModel.currentWordCount.observe(viewLifecycleOwner,{updatedWordCount: Int -> binding.wordCount.text = getString(R.string.word_count,updatedWordCount,
-//            MAX_NO_OF_WORDS)})
-//        viewModel.currentScrambledWord.observe(viewLifecycleOwner, {newWord ->
-//            binding.textViewUnscrambledWord.text = newWord
-//        })
+        viewModel.score.observe(viewLifecycleOwner,{updatedScore : Int -> binding.score.text = getString(R.string.score,updatedScore)})
+        viewModel.currentWordCount.observe(viewLifecycleOwner,{updatedWordCount: Int -> binding.wordCount.text = getString(R.string.word_count,updatedWordCount,
+            MAX_NO_OF_WORDS)})
+        viewModel.currentScrambledWord.observe(viewLifecycleOwner, {newWord ->
+            binding.textViewUnscrambledWord.text = newWord
+        })
 
     }
 
@@ -99,7 +99,7 @@ class GameFragment : Fragment() {
      * Increases the word count.
      */
     private fun onSkipWord() {
-        if (viewModel.nextWord()) {
+            if (viewModel.nextWord()) {
             setErrorTextField(false)
         } else {
             showFinalScoreDialog()
